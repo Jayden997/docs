@@ -1,4 +1,86 @@
 ---
-title: 'Create Plant'
-openapi: 'POST /plants'
+title: "Pause Subscription"
+openapi: "POST /plants"
 ---
+
+
+---
+
+# Pause Subscription API
+
+**Request Endpoint:**
+
+```
+POST {url}/router/subscription/pause
+```
+
+**Headers:**
+
+```
+sign: sha256(RequestBody + "secretkey")
+```
+
+**Request Body Example:**
+
+```
+{
+  "terminalId": "240000840001",
+  "subscriptionId": "S24111014002252200004812",
+  "pauseFlag": "2",
+  "pauseStartDate": "2024-11-12",
+  "pauseEndDate": "2024-11-15"
+}
+```
+
+## Request Parameters
+
+| Field Name     | Type   | Required | Description                                                                        |
+| :------------- | :----- | :------- | :--------------------------------------------------------------------------------- |
+| terminalId     | String | Y        | Terminal ID provided by Payinsider.                                                |
+| subscriptionId | String | Y        | Payinsider subscription ID.                                                        |
+| pauseFlag      | String | Y        | Pause type: `1` = Immediate pause, `2` = Custom pause. Required if `pauseFlag=2`.  |
+| pauseStartDate | String | C        | Scheduled pause start date (format: YYYY-MM-DD). Required when `pauseFlag` is `2`. |
+| pauseEndDate   | String | N        | Scheduled pause end date (format: YYYY-MM-DD).                                     |
+
+---
+
+## Response Example
+
+```
+{
+  "msg": "操作成功",
+  "code": 200,
+  "data": {
+    "terminalId": "240000290002",
+    "recurringToken": "21f5d4f7c2e0e42d66d71af9cf35bacca4cb98a28b7a37f2ab373feb2fe7ef66",
+    "subscriptionId": "S2410251728094370001d416",
+    "piCustomerId": "CI0aHNUKIOBEPP0ny2cc",
+    "status": 1,
+    "cancel": false,
+    "pause": true,
+    "expectedPauseStart": "2024-10-30",
+    "expectedPauseEnd": "2024-11-10"
+  }
+}
+```
+
+## Response Parameters
+
+| Field Name         | Type    | Required | Description                                                      |
+| :----------------- | :------ | :------- | :--------------------------------------------------------------- |
+| terminalId         | String  | Y        | Terminal ID provided by Payinsider.                              |
+| recurringToken     | String  | Y        | Subscription order token value.                                  |
+| subscriptionId     | String  | Y        | Payinsider subscription ID.                                      |
+| piCustomerId       | String  | Y        | Payinsider subscriber ID.                                        |
+| status             | Integer | Y        | Subscription status: `1` = Active, `3` = Canceled, `4` = Paused. |
+| cancel             | Boolean | Y        | Whether cancellation is initiated.                               |
+| expectedCancelDate | String  | N        | Scheduled cancellation date.                                     |
+| pause              | Boolean | Y        | Whether pause was initiated.                                     |
+| expectedPauseStart | String  | N        | Scheduled pause start date.                                      |
+| expectedPauseEnd   | String  | N        | Scheduled pause end date.                                        |
+
+---
+
+我可以帮你再做一个 **更精美的 Markdown 版本**，用 **代码块、表格、和可折叠的示例**，看起来像官方 API 文档一样。如果你需要，我可以直接生成。
+
+你希望我做吗？
